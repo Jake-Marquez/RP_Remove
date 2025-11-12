@@ -1,0 +1,40 @@
+service:
+  name: "Workshop Pi"
+  description: "IoT development device in workshop"
+  port: 5000
+  api_key: "your-secret-key-here"  # Change this!
+
+functions:
+  - id: "toggle_lights"
+    name: "Toggle Workshop Lights"
+    description: "Turn the workshop lights on or off"
+    inputs:
+      - name: "state"
+        type: "boolean"
+        description: "true for on, false for off"
+        required: true
+    script: "./led_toggle.sh"
+    timeout: 5
+
+  - id: "check_temperature"
+    name: "Check Temperature"
+    description: "Get current temperature from sensor"
+    inputs: []
+    script: "./scripts/check_temp.py"
+    timeout: 10
+    return_format: "json"
+
+  - id: "restart_service"
+    name: "Restart Service"
+    description: "Restart a system service"
+    inputs:
+      - name: "service_name"
+        type: "string"
+        description: "Name of the service to restart"
+        required: true
+      - name: "confirm"
+        type: "boolean"
+        description: "Confirmation flag"
+        required: true
+    script: "./scripts/restart_service.sh"
+    timeout: 30
